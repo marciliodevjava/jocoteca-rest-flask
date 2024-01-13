@@ -14,6 +14,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
     )
 db = SQLAlchemy(app)
 
+
 class Jogos(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(50), nullable=False)
@@ -31,6 +32,7 @@ class Usuarios(db.Model):
 
     def __repr__(self):
         return '<Name %r>' % self.nome
+
 
 @app.route('/')
 def index():
@@ -50,8 +52,16 @@ def criar():
     nome = request.form['nome']
     categoria = request.form['categoria']
     console = request.form['console']
-    jogo = Jogo(nome, categoria, console)
-    lista.append(jogo)
+
+    jogo = Jogos.query.filter_by(nome=nome).first()
+    if jogo:
+        flash("Esse jogo já existe {}".format(nome))
+        return redirect(url_for('/index'))
+
+    novo_jogo = Jogos(nome=nome, categoria=categoria, console=console)
+    db.session.add(novo_jogo)
+    db.session.commit()
+
     return redirect(url_for('index'))
 
 
