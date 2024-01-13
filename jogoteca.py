@@ -1,35 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 
-
-class Jogo:
-    def __init__(self, nome, categoria, console):
-        self.nome = nome
-        self.categoria = categoria
-        self.console = console
-
-
-jogo1 = Jogo('Tetris', 'Puzzle', 'Atari')
-jogo2 = Jogo('God of War', 'Hack n Slash', 'PS2')
-jogo3 = Jogo('Mortal Kombat', 'Luta', 'PS2')
-lista = [jogo1, jogo2, jogo3]
-
-
-class Usuario:
-    def __init__(self, nome, nickname, senha):
-        self.nome = nome
-        self.nickname = nickname
-        self.senha = senha
-
-
-usuario1 = Usuario("Bruno Divino", "BD", "alohomora")
-usuario2 = Usuario("Camila Ferreira", "Mila", "paozinho")
-usuario3 = Usuario("Guilherme Louro", "Cake", "python_eh_vida")
-
-usuarios = {usuario1.nickname: usuario1,
-            usuario2.nickname: usuario2,
-            usuario3.nickname: usuario3}
-
 app = Flask(__name__)
 app.secret_key = 'alura'
 app.config['SQLALCHEMY_DATABASE_URI'] = \
