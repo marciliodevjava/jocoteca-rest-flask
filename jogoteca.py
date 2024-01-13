@@ -34,6 +34,7 @@ class Usuarios(db.Model):
 
 @app.route('/')
 def index():
+    lista = Jogos.query.order_by(Jogos.id)
     return render_template('lista.html', titulo='Jogos', jogos=lista)
 
 
@@ -62,8 +63,8 @@ def login():
 
 @app.route('/autenticar', methods=['POST', ])
 def autenticar():
-    if request.form['usuario'] in usuarios:
-        usuario = usuarios[request.form['usuario']]
+    usuario = Usuarios.query.filter_by(nickname=request.form['usuario']).first()
+    if usuario:
         if request.form['senha'] == usuario.senha:
             session['usuario_logado'] = usuario.nickname
             flash(usuario.nickname + ' logado com sucesso!')
@@ -74,7 +75,7 @@ def autenticar():
         return redirect(url_for('login'))
 
 
-@app.route('/logout')
+@app.route('/loggout')
 def logout():
     session['usuario_logado'] = None
     flash('Logout efetuado com sucesso!')
