@@ -6,5 +6,7 @@ app.config.from_pyfile('.\config\config.py')
 
 db = SQLAlchemy(app)
 
+from resource import views
+
 if __name__ == '__main__':
     app.run(debug=True)
