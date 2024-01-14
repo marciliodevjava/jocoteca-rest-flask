@@ -67,6 +67,11 @@ def criar():
     db.session.add(novo_jogo)
     db.session.commit()
 
+    arquivo = request.files['arquivo']
+    uploads_path = app.config['UPLOAD_PATH']
+    arquivo.save(f'{uploads_path}/capa{novo_jogo.id}.jpg')
+
+    flash(f"Jogo {nome} cadastrado com sucesso!")
     return redirect(url_for('index'))
 
 
