@@ -1,5 +1,3 @@
-import os
-
 SECRET_KEY = 'alura'
 
 SQLALCHEMY_DATABASE_URI = \
@@ -12,6 +10,4 @@ SQLALCHEMY_DATABASE_URI = \
         database='jogoteca'
     )
 
-
 UPLOAD_PATH = r'.\uploads'
-
